@@ -29,7 +29,7 @@ def find_excel(root_path):#root_path即要搜索的文件根目录
     return(all_file_list)#筛选特定目录下xls文件并且将文件路径做成列表
 
 source_list=[]#八个文件的路径列表
-source_list=find_excel(r'C:\Users\Administrator\Desktop\基于NRC词典的文本情感分析\NRC词典\onefileperemotion')
+source_list=find_excel(r'..\NRC词典\onefileperemotion')
 
 def combine_list(s_list,target_xls):#分别为要合并的文件表与合并后的文件列表
     import xlsxwriter
@@ -77,7 +77,7 @@ def combine_list(s_list,target_xls):#分别为要合并的文件表与合并后�
     workbook.close()
 
 
-    target_list=r"C:\Users\Administrator\Desktop\基于NRC词典的文本情感分析\NRC词典\all_word_emotion\all_emotions.xlsx"
+    target_list=r"..\NRC词典\all_word_emotion\all_emotions.xlsx"
 combine_list(source_list,target_list)
 
 

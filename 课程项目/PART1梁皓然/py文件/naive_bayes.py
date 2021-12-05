@@ -1,7 +1,7 @@
 #!/usr/bin/python                                                                                                                                                                                                                    
 #coding=utf-8
 
-from bayes import Bayes
+from bayes import Bayes # 如果显示系统没有这个模块请阅读该子文件夹的README.md
 import jieba
 import pandas as pd
 from numpy import *
@@ -14,7 +14,7 @@ def stopwordslist(filepath):
 # 2. 对句子进行分词
 def wordCut(sentence):
     words = jieba.cut(sentence.strip())
-    stopwords = stopwordslist('C:\\Users\\liang\\Desktop\\机器学习\\朴素贝叶斯分类器\\停用词表\\cn_stopwords.txt') # 这里加载停用词的路径
+    stopwords = stopwordslist('cn_stopwords.txt') # 这里加载停用词的相对路径
     outstr = []
     for word in words:
         if word not in stopwords:
@@ -24,7 +24,6 @@ def wordCut(sentence):
 
 def DataHandle(filename,flag):
     out = []
-    #lines = pd.read_table("C:\\Users\\John\\Desktop\\emotion Analysis\\goods.txt", header=None, encoding='utf-8', names=['评论'])
     lines = pd.read_table(filename,header=None,encoding='utf-8',names=['评论'])
     for line in lines['评论']:
         line = str(line)
@@ -39,8 +38,8 @@ def DataHandle(filename,flag):
     return Vec, out
 
 if __name__ == '__main__':
-    goodDataPath = 'C:\\Users\\liang\\Desktop\\机器学习\\朴素贝叶斯分类器\\good.txt'
-    badDataPath = 'C:\\Users\\liang\\Desktop\\机器学习\\朴素贝叶斯分类器\\bad.txt'
+    goodDataPath = 'good.txt'
+    badDataPath = 'bad.txt'
 
     # 1 好评    0 差评
     goodVec, goodList = DataHandle(goodDataPath, 1)

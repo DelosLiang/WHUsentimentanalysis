@@ -17,3 +17,5 @@
 
 # 停用词表
 - 程序中nltk库调用的停用词表是"english"。文件运用详情参照停用词表文件中的README文件。
+# 库
+- nltk分词词库，若系统提示无nltk模块，请将文件中的文件夹完整复制到 anecoda\Lib\site-packages 文件夹中

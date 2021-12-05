@@ -19,7 +19,7 @@ def NRC_analy(all_emotion_ex,text_txt):
     import numpy as np
     import xlsxwriter
     import xlrd
-    from nltk import word_tokenize
+    from nltk import word_tokenize#若系统提示无该模块，请参阅README文件。
     from nltk.tokenize import word_tokenize
     
     #利用nltk对文章进行分词

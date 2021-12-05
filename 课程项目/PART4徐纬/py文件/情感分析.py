@@ -23,11 +23,11 @@ plt.style.use('Solarize_Light2') # 设置绘图样式
 # In[2]:
 
 
-data = pd.read_csv(r'C:\Users\86158\Desktop\python\pre\社区情感\数据\武汉.csv',encoding='utf8')
+data = pd.read_csv('武汉.csv',encoding='utf8')
 data.head()
 
 
-# In[11]:
+# In[3]:
 
 
 time_year = data['时间'].value_counts()
@@ -44,11 +44,10 @@ fig = plt.figure(figsize=(8,6))
 plt.plot(x,y,color='skyblue',linewidth=1,marker='o',markersize=5)
 plt.xlabel('年份')
 plt.ylabel('评论数')
-plt.savefig(r'C:\Users\86158\Desktop\python\pre\社区情感\output\评论数走势')
 plt.show()
 
 
-# In[12]:
+# In[4]:
 
 
 display(data.shape)
@@ -56,21 +55,21 @@ comments = data[['标题']].drop_duplicates()
 display(comments.shape)
 
 
-# In[17]:
+# In[5]:
 
 
 comments = comments.dropna()
 comments.shape
 
 
-# In[18]:
+# In[6]:
 
 
 str_re = re.compile('[a-zA-Z0-9]|武汉|新人|报到')
 comments['标题'] = comments['标题'].apply(lambda x: str_re.sub('',x))
 
 
-# In[19]:
+# In[7]:
 
 
 # 把每条评论分词，并标注每个词的词性
@@ -79,7 +78,7 @@ seg_word = comments['标题'].apply(worker)
 seg_word.head()
 
 
-# In[20]:
+# In[8]:
 
 
 # 每一条评论中的词的个数
@@ -91,7 +90,7 @@ n_content = [[x+1]*y for x,y in zip(list(seg_word.index),list(n_word))]
 index_content = sum(n_content,[]) # 将嵌套列表展开，作为词所在评论 id
 
 
-# In[23]:
+# In[ ]:
 
 
 seg_word = sum(seg_word,[]) # 列表。形式：[(词，词性)....]
@@ -99,7 +98,7 @@ word = [x[0] for x in seg_word] # 词
 nature = [x[1] for x in seg_word] # 词性
 
 
-# In[22]:
+# In[ ]:
 
 
 # 转为数据框，第一列为词所在评论id，第二列词语，第三列词性
@@ -117,18 +116,18 @@ result.head()
 result = result[result['nature'] != 'x']
 
 
-# In[ ]:
+# In[12]:
 
 
 # 删除停用词
-stop_path = open(r'C:\Users\86158\Desktop\python\pre\社区情感\停用词表\stoplist.txt','r',encoding='utf8')
+stop_path = open(r'stoplist.txt','r',encoding='utf8')
 stop = stop_path.readlines()
 stop = [x.replace('\n','') for x in stop]
 word = list(set(word) - set(stop))
 result = result[result['word'].isin(word)]
 
 
-# In[28]:
+# In[13]:
 
 
 # 构造各词在对应评论的位置列
@@ -141,19 +140,19 @@ result['index_word'] = index_word
 result.head()
 
 
-# In[ ]:
+# In[14]:
 
 
 ind = result[[('n' in x) or ('adj' in x) for x in result['nature']]]['index_content'].unique()
 result = result[[x in ind for x in result['index_content']]]
 
 
-# In[ ]:
+# In[22]:
 
 
 frequencies = result.groupby(by = ['word'])['word'].count()
 frequencies = frequencies.sort_values(ascending = False)
-backgroud_Image=plt.imread(r'C:\Users\86158\Desktop\python\pre\社区情感\output\pl.jpg')
+backgroud_Image=plt.imread(r'pl.jpg')
 wordcloud = WordCloud(font_path="msyh.ttc",
                       max_words=100,
                       background_color='white',
@@ -161,30 +160,30 @@ wordcloud = WordCloud(font_path="msyh.ttc",
 my_wordcloud = wordcloud.fit_words(frequencies)
 plt.imshow(my_wordcloud)
 plt.axis('off')
-plt.savefig(r'CC:\Users\86158\Desktop\python\pre\社区情感\output\综合情感词云.png')
+plt.savefig(r'综合情感词云.png')
 plt.show()
 
 # 将结果写出
-result.to_csv(r"C:\Users\86158\Desktop\python\pre\社区情感\output",index=False,encoding='utf-8')
+result.to_csv(r"word.csv",index=False,encoding='utf-8')
 
 
-# In[24]:
+# In[23]:
 
 
 word = result
 
 # 读入正面、负面情感评价词
-pos_comment = pd.read_csv(r'C:\Users\86158\Desktop\python\pre\社区情感\停用词表\正面评价词语（中文）.txt', header=None,sep="\n",
+pos_comment = pd.read_csv(r'正面评价词语（中文）.txt', header=None,sep="\n",
                           encoding = 'utf-8', engine='python')
-neg_comment = pd.read_csv(r'C:\Users\86158\Desktop\python\pre\社区情感\停用词表\负面评价词语（中文）.txt', header=None,sep="\n",
+neg_comment = pd.read_csv(r'负面评价词语（中文）.txt', header=None,sep="\n",
                           encoding = 'utf-8', engine='python')
-pos_emotion = pd.read_csv(r'C:\Users\86158\Desktop\python\pre\社区情感\停用词表\正面情感词语（中文）.txt', header=None,sep="\n",
+pos_emotion = pd.read_csv(r'正面情感词语（中文）.txt', header=None,sep="\n",
                           encoding = 'utf-8', engine='python')
-neg_emotion = pd.read_csv(r'C:\Users\86158\Desktop\python\pre\社区情感\停用词表\负面情感词语（中文）.txt', header=None,sep="\n",
+neg_emotion = pd.read_csv(r'负面情感词语（中文）.txt', header=None,sep="\n",
                           encoding = 'utf-8', engine='python')
 
 
-# In[25]:
+# In[24]:
 
 
 # 合并情感词与评价词
@@ -199,7 +198,7 @@ negative = pd.DataFrame({"word":negative,
                          "weight":[-1]*len(negative)})
 
 
-# In[29]:
+# In[25]:
 
 
 # 将正负情感表进行合并
@@ -211,7 +210,7 @@ data_posneg = posneg.merge(word, left_on = 'word', right_on = 'word',
 data_posneg = data_posneg.sort_values(by = ['index_content','index_word'])
 
 
-# In[30]:
+# In[26]:
 
 
 # 载入否定词表
@@ -250,7 +249,7 @@ emotional_value = only_inclination.groupby(['index_content'],
 emotional_value = emotional_value[emotional_value['amend_weight'] != 0]
 
 
-# In[31]:
+# In[27]:
 
 
 # 给情感值大于0的赋予评论类型为pos,小于0的为neg
@@ -259,7 +258,7 @@ emotional_value['a_type'][emotional_value['amend_weight'] > 0] = 'pos'
 emotional_value['a_type'][emotional_value['amend_weight'] < 0] = 'neg'
 
 
-# In[32]:
+# In[28]:
 
 
 # 查看情感分析结果
@@ -277,13 +276,13 @@ posdata = word[[i in ind_pos for i in word['index_content']]]
 negdata = word[[i in ind_neg for i in word['index_content']]]
 
 
-# In[33]:
+# In[29]:
 
 
 # 正面情感词词云
 freq_pos = posdata.groupby(by = ['word'])['word'].count()
 freq_pos = freq_pos.sort_values(ascending = False)
-backgroud_Image=plt.imread(r'C:\Users\86158\Desktop\python\pre\社区情感\output\pl.jpg')
+backgroud_Image=plt.imread(r'pl.jpg')
 wordcloud = WordCloud(font_path="msyh.ttc",
                       max_words=100,
                       background_color='white',
@@ -291,11 +290,11 @@ wordcloud = WordCloud(font_path="msyh.ttc",
 pos_wordcloud = wordcloud.fit_words(freq_pos)
 plt.imshow(pos_wordcloud)
 plt.axis('off')
-plt.savefig(r'C:\Users\86158\Desktop\python\pre\社区情感\output\positive.jpg')
+plt.savefig(r'positive.jpg')
 plt.show()
 
 
-# In[34]:
+# In[30]:
 
 
 # 负面情感词词云
@@ -304,24 +303,24 @@ freq_neg = freq_neg.sort_values(ascending = False)
 neg_wordcloud = wordcloud.fit_words(freq_neg)
 plt.imshow(neg_wordcloud)
 plt.axis('off')
-plt.savefig(r'C:\Users\86158\Desktop\python\pre\社区情感\output\negative.jpg')
+plt.savefig(r'negative.jpg')
 plt.show()
 
 
-# In[36]:
+# In[31]:
 
 
 # 将结果写出,每条评论作为一行
-posdata.to_csv(r'C:\Users\86158\Desktop\python\pre\社区情感\output\posdata.csv', index = False, encoding = 'utf-8')
-negdata.to_csv(r'C:\Users\86158\Desktop\python\pre\社区情感\output\negdata.csv', index = False, encoding = 'utf-8')
+posdata.to_csv(r'posdata.csv', index = False, encoding = 'utf-8')
+negdata.to_csv(r'negdata.csv', index = False, encoding = 'utf-8')
 
 
-# In[41]:
+# In[32]:
 
 
 # 载入情感分析后的数据
-posdata = pd.read_csv(r'C:\Users\86158\Desktop\python\pre\社区情感\output\posdata.csv', encoding = 'utf-8')
-negdata = pd.read_csv(r'C:\Users\86158\Desktop\python\pre\社区情感\output\negdata.csv', encoding = 'utf-8')
+posdata = pd.read_csv(r'posdata.csv', encoding = 'utf-8')
+negdata = pd.read_csv(r'negdata.csv', encoding = 'utf-8')
 
 # 建立词典
 pos_dict = corpora.Dictionary([[i] for i in posdata['word']])  # 正面
@@ -332,7 +331,7 @@ pos_corpus = [pos_dict.doc2bow(j) for j in [[i] for i in posdata['word']]]  # �
 neg_corpus = [neg_dict.doc2bow(j) for j in [[i] for i in negdata['word']]]   # 负面
 
 
-# In[47]:
+# In[33]:
 
 
 # 解决matplotlib中文变成小方格的问题
@@ -414,7 +413,7 @@ ax2.set_xlabel('负面评论LDA主题数寻优', fontproperties=font)
 plt.show()
 
 
-# In[52]:
+# In[34]:
 
 
 # LDA主题分析
@@ -424,7 +423,7 @@ pos_topic = pos_lda.print_topics(num_words = 10)
 neg_topic = neg_lda.print_topics(num_words = 10)
 
 
-# In[53]:
+# In[35]:
 
 
 pos_theme = []
@@ -434,7 +433,7 @@ for p in pos_topic:
 pos_theme
 
 
-# In[54]:
+# In[36]:
 
 
 neg_theme = []
