@@ -1,32 +1,51 @@
-## 课程项目
+## Course Project
 
-**将课程项目拆分为四个部分**
-
-* PART1梁皓然:基于朴素贝叶斯的情感分析
+*We split the course project into four parts.*
 
 
-* PART2陈滨琪:基于Textblob的情感分析
+* PART1 Haoran Liang(**Group Leader**): Sentiment Analysis Based on Naive Bayes
 
 
-* PART3王昭翔:基于NRC词典的情感分析
+* PART2 Bingqi Chen: Textblob-based sentiment analysis
 
 
-* PART4徐纬:基于HOWNET词典的情感分析
-
-p.s. 
-***请务必阅读每个子文件的README.md***
-
-## 文本挖掘学习文档
-
-* 文本挖掘学习文档是我在学习文本挖掘时整理的适合新手入门的学习文档
+* PART3 Zhaoxiang Wang: Sentiment Analysis Based on NRC Dictionary
 
 
-* 文档包含**ipynb格式**和**html格式**的文件，其中html格式的文件是为了方便老师查阅
+* PART4 Wei Xu: Sentiment Analysis Based on HOWNET Dictionary
 
-## 项目报告以及PPT
+## Text Mining Learning Documents
 
-内容由组员各自完成对应的部分，由组长梁皓然汇总，由徐纬完成最后的美化
+* The text mining learning document is a learning document suitable for beginners that I organized when I was learning text mining
 
-## 联系方式
 
-*Julianlhr@whu.edu.cn*
+* The document contains files in **ipynb format** and **html format**, of which the html format file is for the convenience of the instructor
+
+## Distribution of Project Report and Final Presentation
+
+The content was completed by the team members, the group leader Liang summarized the content, and Xu completed the final beautification.
+
+## Brief Introduction
+
+As an engineering student, it is highly desirable for me to apply the knowledge which I learned from **Python Programming** and **Machine Learning** to some engineering topics, but all of my teammates are from non-engineering majors. So we picked up a **Natural Language Processing** topic which could also boost the robustness of what I've learned from ML and Python Programming. What's more, the data processing part of NLP and ML which applies to structural engineer is quite similiar.
+
+
+**WHAT WE DO**:
+
+
+* Defined appropriate datasets for language learning based on the knowledge gained from Machine Learning
+
+
+* Designed and developed a natural language processing model based on Naive Bayes by Python
+
+
+* Trained the developed model and ran evaluation experiments
+
+
+* Performed statistical analysis of results by OriginLab and finished the final report and presentation
+
+## Contact Us
+
+* Group leader **Haoran Liang**: DelosLiang@outlook.com
+
+* Instructor Wenbin Huang(Vice Professor of Wuhan University Computer science and technology department): Wbhuang@whu.edu.cn
